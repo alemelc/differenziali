@@ -1,0 +1,38 @@
+services:
+  # PHP + APACHE
+  app:
+    image: php:8.4-apache
+    container_name: php_app
+    ports:
+      - "80:80" # Ora usiamo la porta 80 standard!
+    volumes:
+      - .:/var/www/html
+    networks:
+      - dev_network
+    command: >
+      sh -c "docker-php-ext-install pdo pdo_mysql && apache2-foreground"
+
+  # DATABASE (MariaDB)
+  db:
+    image: mariadb:10.11
+    container_name: php_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mio_db
+    networks:
+      - dev_network
+
+  # INTERFACCIA DATABASE (Sostituisce phpMyAdmin di XAMPP)
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: php_pma
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db # Deve corrispondere al nome del servizio database sopra
+    networks:
+      - dev_network
+
+networks:
+  dev_network:
+    driver: bridge

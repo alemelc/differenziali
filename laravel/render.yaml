@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: differenziali-app
+    runtime: docker
+    plan: free
+    region: frankfurt
+    envVars:
+      - key: APP_KEY
+        generateValue: true
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: DATABASE_URL
+        fromDatabase:
+          name: differenziali-db
+          property: connectionString
+
+databases:
+  - name: differenziali-db
+    plan: free
+    region: frankfurt
+    databaseName: differenziali
+    user: admin
