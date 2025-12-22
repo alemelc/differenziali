@@ -42,6 +42,7 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 # Expose port and start Nginx + PHP-FPM
 EXPOSE 80
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY key_generate_script.php /var/www/html/key_generate_script.php
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

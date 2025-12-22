@@ -7,8 +7,12 @@ service nginx start
 if [ ! -f .env ]; then
     cp .env.example .env
 fi
+
+# Manually generate key and write to .env
+php key_generate_script.php
+
 php artisan config:clear
-php artisan key:generate --force
+
 php artisan config:clear
 php artisan migrate --force
 php artisan config:clear
