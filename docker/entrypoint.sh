@@ -4,6 +4,9 @@
 service nginx start
 
 # Run migrations
+if [ ! -f .env ]; then
+    cp .env.example .env
+fi
 php artisan config:clear
 php artisan key:generate --force
 php artisan config:clear
