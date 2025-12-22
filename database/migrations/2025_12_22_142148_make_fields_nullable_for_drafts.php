@@ -13,21 +13,29 @@ return new class extends Migration
     public function up(): void
     {
         // Seniority
-        DB::statement("ALTER TABLE seniority_records MODIFY dal DATE NULL");
-        DB::statement("ALTER TABLE seniority_records MODIFY al DATE NULL");
-        DB::statement("ALTER TABLE seniority_records MODIFY esperienza_come VARCHAR(255) NULL");
-        DB::statement("ALTER TABLE seniority_records MODIFY nell_area VARCHAR(255) NULL");
-        DB::statement("ALTER TABLE seniority_records MODIFY ente VARCHAR(255) NULL");
+        Schema::table('seniority_records', function (Blueprint $table) {
+            $table->date('dal')->nullable()->change();
+            $table->date('al')->nullable()->change();
+            $table->string('esperienza_come')->nullable()->change();
+            $table->string('nell_area')->nullable()->change();
+            $table->string('ente')->nullable()->change();
+        });
 
         // Disciplinary
-        DB::statement("ALTER TABLE disciplinary_proceedings MODIFY data DATE NULL");
-        DB::statement("ALTER TABLE disciplinary_proceedings MODIFY oggetto TEXT NULL");
+        Schema::table('disciplinary_proceedings', function (Blueprint $table) {
+            $table->date('data')->nullable()->change();
+            $table->text('oggetto')->nullable()->change();
+        });
 
         // Titles
-        DB::statement("ALTER TABLE titles MODIFY descrizione VARCHAR(255) NULL");
+        Schema::table('titles', function (Blueprint $table) {
+            $table->string('descrizione')->nullable()->change();
+        });
         
         // Trainings
-        DB::statement("ALTER TABLE trainings MODIFY descrizione VARCHAR(255) NULL");
+        Schema::table('trainings', function (Blueprint $table) {
+            $table->string('descrizione')->nullable()->change();
+        });
     }
 
     /**
