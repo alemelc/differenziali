@@ -10,10 +10,12 @@ services:
       - key: APP_ENV
         value: production
       - key: APP_DEBUG
-        value: false
+        value: "false"
       - key: LOG_CHANNEL
         value: stderr
-      - key: DATABASE_URL
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_URL
         fromDatabase:
           name: differenziali-db
           property: connectionString
