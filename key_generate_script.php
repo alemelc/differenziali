@@ -10,10 +10,9 @@ $kernel->bootstrap();
 
 $key = 'base64:' . base64_encode(random_bytes(32));
 
-echo "Generated Key: " . $key . PHP_EOL;
-
-// Force write even if .env doesn't exist (it should)
-file_put_contents(__DIR__ . '/.env', 'APP_KEY=' . $key . PHP_EOL, FILE_APPEND);
+// echo "Generated Key: " . $key . PHP_EOL; // Silent output
+echo $key; // Just echo the key strictly
+exit(0);
 
 echo "Key successfully appended to .env" . PHP_EOL;
 
