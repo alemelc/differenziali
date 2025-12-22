@@ -5,9 +5,8 @@ service nginx start
 
 # Run migrations
 php artisan config:clear
-if [ -z "$APP_KEY" ]; then
-    php artisan key:generate --force
-fi
+php artisan key:generate --force
+php artisan config:clear
 php artisan migrate --force
 
 # Cache config and routes
