@@ -1,16 +1,24 @@
 services:
   # PHP + APACHE
+  # APP (Production-like environment with Nginx + PHP-FPM)
   app:
-    image: php:8.4-apache
-    container_name: php_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: differenziali_app
     ports:
-      - "80:80" # Ora usiamo la porta 80 standard!
-    volumes:
-      - .:/var/www/html
+      - "80:80"
+    environment:
+      APP_ENV: local
+      APP_DEBUG: "true"
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: mio_db
+      DB_USERNAME: root
+      DB_PASSWORD: root
     networks:
       - dev_network
-    command: >
-      sh -c "docker-php-ext-install pdo pdo_mysql && apache2-foreground"
 
   # DATABASE (MariaDB)
   db:
